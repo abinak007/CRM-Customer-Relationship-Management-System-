@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id',
     ];
 
     /**
@@ -45,5 +46,37 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * User belongs to a Role.
+     */
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    /**
+     * Leads created by this user.
+     */
+    public function createdLeads()
+    {
+        return $this->hasMany(Lead::class, 'created_by');
+    }
+
+    /**
+     * Leads assigned as Customer Care Executive.
+     */
+    public function customerCareLeads()
+    {
+        return $this->hasMany(Lead::class, 'customer_care_id');
+    }
+
+    /**
+     * Leads assigned as Sales Executive.
+     */
+    public function salesLeads()
+    {
+        return $this->hasMany(Lead::class, 'sales_executive_id');
     }
 }
