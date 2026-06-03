@@ -98,8 +98,54 @@
                 <strong>Remarks:</strong><br>
                 {{ $lead->remarks ?? '-' }}
             </div>
+<div>
+               <a href="{{ route('followups.create') }}"
+   class="bg-blue-600 text-white px-4 py-2 rounded">
+    Add Follow-up
+</a>
+            </div>
+            <hr class="my-6">
 
+<h2 class="text-xl font-bold mb-4">
+    Follow-up History
+</h2>
+
+<table class="w-full border">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Notes</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @forelse($lead->followups as $followup)
+
+            <tr>
+                <td>{{ $followup->followup_date }}</td>
+
+                <td>{{ $followup->followup_type }}</td>
+
+                <td>{{ $followup->followup_status }}</td>
+
+                <td>{{ $followup->discussion_notes }}</td>
+            </tr>
+
+        @empty
+
+            <tr>
+                <td colspan="4">
+                    No Follow-ups Found
+                </td>
+            </tr>
+
+        @endforelse
+
+    </tbody>
+</table>
         </div>
-
     </div>
 </x-app-layout>

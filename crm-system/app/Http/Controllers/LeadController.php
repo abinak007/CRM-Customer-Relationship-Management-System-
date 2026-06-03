@@ -67,6 +67,8 @@ public function index()
      */
     public function show(Lead $lead)
 {
+    $lead->load('followups');
+
     return view('leads.show', compact('lead'));
 }
 
