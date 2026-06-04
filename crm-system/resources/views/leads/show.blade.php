@@ -10,6 +10,17 @@
                class="bg-gray-600 text-white px-4 py-2 rounded">
                 Back
             </a>
+            <form action="{{ route('leads.convert', $lead->id) }}"
+      method="POST"
+      style="display:inline;">
+    @csrf
+
+    <button type="submit"
+            onclick="return confirm('Convert this lead to customer?')"
+            class="bg-blue-600 text-white px-4 py-2 rounded">
+        Convert To Customer
+    </button>
+</form>
         </div>
 
         <div class="bg-white shadow rounded p-6">

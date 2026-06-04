@@ -7,6 +7,7 @@ use App\Models\Lead;
 use App\Models\LeadSource;
 use App\Models\LeadPriority;
 use App\Models\LeadStage;
+use App\Models\Customer;
 
 class LeadController extends Controller
 {
@@ -114,5 +115,26 @@ public function index()
     return redirect()
         ->route('leads.index')
         ->with('success', 'Lead deleted successfully');
+}
+
+    /**
+     * Convert lead to customer.
+     */
+   public function convertToCustomer(Lead $lead)
+{
+    Customer::create([
+        'customer_code' => 'CUS-' . time(),
+        'lead_id' => $lead->id,
+        'customer_name' => $lead->customer_name,
+        'contact_person' => $lead->customer_name,
+        'mobile_number' => $lead->mobile_number,
+        'email' => $lead->email,
+        'address' => $lead->address,
+        'status' => 'Active',
+    ]);
+
+    return redirect()
+        ->route('customers.index')
+        ->with('success', 'Customer created successfully.');
 }
 }
